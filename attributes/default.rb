@@ -1,3 +1,5 @@
+# Modifications by Josh Ellithorpe
+# to support replication.
 #
 # Cookbook Name:: postgresql
 # Attributes:: default
@@ -6,6 +8,14 @@
 #
 # Copyright 2012-2013, Phil Cohen
 #
+
+#------------------------------------------------------------------------------
+# SERVER TYPE
+#------------------------------------------------------------------------------
+
+# By default don't set master or slave and assume a single pg instance.
+default["postgresql"]["master"]                          = false
+default["postgresql"]["slave"]                           = false
 
 default["postgresql"]["version"]                         = "9.3"
 default["postgresql"]["apt_distribution"]                = node["lsb"]["codename"]
