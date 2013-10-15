@@ -160,10 +160,10 @@ shared_buffers = <%= node["postgresql"]["shared_buffers"] %>     # min 128kB
 
 # - Settings -
 
-#wal_level = <%= node["postgresql"]["wal_level"] %>      # minimal, archive, or hot_standby
+wal_level = <%= node["postgresql"]["wal_level"] %>      # minimal, archive, or hot_standby
           # (change requires restart)
-#fsync = <%= node["postgresql"]["fsync"] %>       # turns forced synchronization on or off
-#synchronous_commit = <%= node["postgresql"]["synchronous_commit"] %>    # synchronization level; on, off, or local
+fsync = <%= node["postgresql"]["fsync"] %>       # turns forced synchronization on or off
+synchronous_commit = <%= node["postgresql"]["synchronous_commit"] %>    # synchronization level; on, off, or local
 #wal_sync_method = <%= node["postgresql"]["wal_sync_method"] %>    # the default is the first option
           # supported by the operating system:
           #   open_datasync
@@ -203,20 +203,23 @@ shared_buffers = <%= node["postgresql"]["shared_buffers"] %>     # min 128kB
 
 # These settings are ignored on a standby server
 
-#max_wal_senders = <%= node["postgresql"]["max_wal_senders"] %>    # max number of walsender processes
+<%- if node["postgresql"]["master"] %>
+max_wal_senders = <%= node["postgresql"]["max_wal_senders"] %>    # max number of walsender processes
         # (change requires restart)
-#wal_sender_delay = <%= node["postgresql"]["wal_sender_delay"] %>    # walsender cycle time, 1-10000 milliseconds
-#wal_keep_segments = <%= node["postgresql"]["wal_keep_segments"] %>    # in logfile segments, 16MB each; 0 disables
+wal_sender_delay = <%= node["postgresql"]["wal_sender_delay"] %>    # walsender cycle time, 1-10000 milliseconds
+wal_keep_segments = <%= node["postgresql"]["wal_keep_segments"] %>    # in logfile segments, 16MB each; 0 disables
 #vacuum_defer_cleanup_age = <%= node["postgresql"]["vacuum_defer_cleanup_age"] %> # number of xacts by which cleanup is delayed
 #replication_timeout = <%= node["postgresql"]["replication_timeout"] %>  # in milliseconds; 0 disables
 #synchronous_standby_names = '<%= node["postgresql"]["synchronous_standby_names"] %>' # standby servers that provide sync rep
         # comma-separated list of application_name
         # from standby(s); '*' = all
+<% end %>
 
 # - Standby Servers -
 
 # These settings are ignored on a master server
 
+<%- if node["postgresql"]["slave"] %>
 #hot_standby = <%= node["postgresql"]["hot_standby"] %>      # "on" allows queries during recovery
           # (change requires restart)
 #max_standby_archive_delay = <%= node["postgresql"]["max_standby_archive_delay"] %>  # max delay before canceling queries
@@ -229,7 +232,7 @@ shared_buffers = <%= node["postgresql"]["shared_buffers"] %>     # min 128kB
           # 0 disables
 #hot_standby_feedback = <%= node["postgresql"]["hot_standby_feedback"] %>   # send info from standby to prevent
           # query conflicts
-
+<% end %>
 
 #------------------------------------------------------------------------------
 # QUERY TUNING
