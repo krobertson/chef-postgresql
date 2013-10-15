@@ -1,3 +1,5 @@
+# Modifications by Josh Ellithorpe
+# to support replication.
 #
 # Cookbook Name:: postgresql
 # Attributes:: default
@@ -25,6 +27,10 @@ default["postgresql"]["apt_repository"]   = "apt.postgresql.org"
 default["postgresql"]["apt_uri"]          = "http://apt.postgresql.org/pub/repos/apt"
 default["postgresql"]["apt_components"]   = ["main", node["postgresql"]["version"]]
 default["postgresql"]["apt_key"]          = "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
+
+# By default don't set master or slave and assume a single pg instance.
+default["postgresql"]["master"]                          = false
+default["postgresql"]["slave"]                           = false
 
 default["postgresql"]["environment_variables"]           = {}
 default["postgresql"]["pg_ctl_options"]                  = ""

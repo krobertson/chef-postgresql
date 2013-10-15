@@ -74,6 +74,7 @@
 
 <% node["postgresql"]["pg_hba"].each do |hba| %>
 <%= hba["type"] %> <%= hba["db"] %> <%= hba["user"] %> <%= hba["addr"] %> <%= hba["method"] %>
+<%= hba['type'] %> <%= hba['db'] %> <%= hba['user'] %> <%= hba['addr'] %> <%= hba['method'] %> <%= hba['options'] %>
 <% end %>
 
 # DO NOT DISABLE!
