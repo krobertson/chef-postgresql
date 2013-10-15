@@ -206,7 +206,6 @@ synchronous_commit = <%= node["postgresql"]["synchronous_commit"] %>    # synchr
 <%- if node["postgresql"]["master"] %>
 max_wal_senders = <%= node["postgresql"]["max_wal_senders"] %>    # max number of walsender processes
         # (change requires restart)
-wal_sender_delay = <%= node["postgresql"]["wal_sender_delay"] %>    # walsender cycle time, 1-10000 milliseconds
 wal_keep_segments = <%= node["postgresql"]["wal_keep_segments"] %>    # in logfile segments, 16MB each; 0 disables
 #vacuum_defer_cleanup_age = <%= node["postgresql"]["vacuum_defer_cleanup_age"] %> # number of xacts by which cleanup is delayed
 #replication_timeout = <%= node["postgresql"]["replication_timeout"] %>  # in milliseconds; 0 disables
