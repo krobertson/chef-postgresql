@@ -162,10 +162,12 @@ default["postgresql"]["synchronous_standby_names"]       = ""
 
 # standby servers
 default["postgresql"]["hot_standby"]                     = "off"
+default["postgresql"]["standby_mode"]                    = "on"
 default["postgresql"]["max_standby_archive_delay"]       = "30s"
 default["postgresql"]["max_standby_streaming_delay"]     = "30s"
 default["postgresql"]["wal_receiver_status_interval"]    = "10s"
 default["postgresql"]["hot_standby_feedback"]            = "off"
+default["postgresql"]["primaryconninfo"]                 = "host=FULLYQUALIFIEDHOST port=5432"
 
 
 #------------------------------------------------------------------------------

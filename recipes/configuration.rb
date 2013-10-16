@@ -66,3 +66,15 @@ template "/etc/postgresql/#{pg_version}/main/start.conf" do
   mode   "0644"
   notifies :restart, "service[postgresql]", :immediately
 end
+
+# Write recovery.conf if we are a slave
+if node[:postgresql][:slave]
+  # This goes in the data directory; where data is stored
+  template "/var/lib/postgresql/9.3/main/recovery.conf" do
+    source "recovery.conf.erb"
+    owner  "postgres"
+    group  "postgres"
+    mode   "0600"
+    notifies :restart, "service[postgresql]"
+  end
+end

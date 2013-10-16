@@ -219,7 +219,7 @@ wal_keep_segments = <%= node["postgresql"]["wal_keep_segments"] %>    # in logfi
 # These settings are ignored on a master server
 
 <%- if node["postgresql"]["slave"] %>
-#hot_standby = <%= node["postgresql"]["hot_standby"] %>      # "on" allows queries during recovery
+hot_standby = <%= node["postgresql"]["hot_standby"] %>      # "on" allows queries during recovery
           # (change requires restart)
 #max_standby_archive_delay = <%= node["postgresql"]["max_standby_archive_delay"] %>  # max delay before canceling queries
           # when reading WAL from archive;
