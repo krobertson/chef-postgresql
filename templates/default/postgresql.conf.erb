@@ -239,6 +239,10 @@ archive_command = '<%= node["postgresql"]["archive_command"] %>'   # command to 
 # REPLICATION
 #------------------------------------------------------------------------------
 
+max_wal_senders = <%= node["postgresql"]["max_wal_senders"] %>    # max number of walsender processes
+        # (change requires restart)
+wal_keep_segments = <%= node["postgresql"]["wal_keep_segments"] %>    # in logfile segments, 16MB each; 0 disables
+
 # - Master Server -
 
 # These settings are ignored on a standby server
