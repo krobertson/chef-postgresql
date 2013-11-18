@@ -13,7 +13,17 @@ file "/usr/sbin/policy-rc.d" do
 end
 
 # install the package
-package "postgresql-#{node["postgresql"]["version"]}"
+package "postgresql-#{node["postgresql"]["version"]}" do
+  notifies :stop, "service[postgresql]", :immediately
+  notifies :run,  "execute[remove-initial-postgres-data-dir]", :immediately
+  action :install
+end
+
+# triggers removal of the initial data directory
+execute "remove-initial-postgres-data-dir" do
+  command "rm -rf #{node["postgresql"]["data_directory"]}"
+  action :nothing
+end
 
 # setup the data directory
 include_recipe "postgresql::data_directory"
