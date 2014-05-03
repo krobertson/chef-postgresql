@@ -81,11 +81,23 @@ end
 # Write recovery.conf if we are a slave
 if node[:postgresql][:slave]
   # This goes in the data directory; where data is stored
-  template "/var/lib/postgresql/9.3/main/recovery.conf" do
+  template File.join(node["postgresql"]["data_directory"], "recovery.conf") do
     source "recovery.conf.erb"
     owner  "postgres"
     group  "postgres"
     mode   "0600"
     notifies :restart, "service[postgresql]"
+  end
+end
+
+# If this is the master, but there is a recovery.conf, then run promote
+if node[:postgresql][:master]
+  bash "promote-to-master" do
+    user "postgres"
+    code <<-EOC
+    /usr/lib/postgresql/#{node["postgresql"]["version"]}/bin/pg_ctl promote \
+      -D #{node["postgresql"]["data_directory"]}
+    EOC
+    only_if "test -f #{node["postgresql"]["data_directory"]}/recovery.conf"
   end
 end
