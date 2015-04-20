@@ -422,7 +422,7 @@ log_line_prefix = '<%= node["postgresql"]["log_line_prefix"] %>'     # special v
 # - Query/Index Statistics Collector -
 
 #track_activities = <%= node["postgresql"]["track_activities"] %>
-#track_counts = <%= node["postgresql"]["track_counts"] %>
+<% if node["postgresql"]["track_counts"].empty %>#<% end %>track_counts = <%= node["postgresql"]["track_counts"] %>
 #track_functions = <%= node["postgresql"]["track_functions"] %>     # none, pl, all
 #track_activity_query_size = <%= node["postgresql"]["track_activity_query_size"] %>   # (change requires restart)
 #update_process_title = <%= node["postgresql"]["update_process_title"] %>
@@ -441,7 +441,7 @@ log_line_prefix = '<%= node["postgresql"]["log_line_prefix"] %>'     # special v
 # AUTOVACUUM PARAMETERS
 #------------------------------------------------------------------------------
 
-#autovacuum = <%= node["postgresql"]["autovacuum"] %>      # Enable autovacuum subprocess?  'on'
+<% if node["postgresql"]["autovacuum"].empty %>#<% end %>autovacuum = <%= node["postgresql"]["autovacuum"] %>      # Enable autovacuum subprocess?  'on'
           # requires track_counts to also be on.
 #log_autovacuum_min_duration = <%= node["postgresql"]["log_autovacuum_min_duration"] %> # -1 disables, 0 logs all actions and
           # their durations, > 0 logs only
