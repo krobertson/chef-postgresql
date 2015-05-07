@@ -30,8 +30,8 @@ else
     user "postgres"
     code <<-EOC
     /usr/lib/postgresql/#{node["postgresql"]["version"]}/bin/pg_basebackup \
-      -h #{node[:postgresql][:primary_conninfo].scan(/host=(\S+)/).flatten.first} \
-      -D #{node["postgresql"]["data_directory"]} \
+      --dbname='#{node[:postgresql][:primary_conninfo]}' \
+      --pgdata=#{node["postgresql"]["data_directory"]} \
       --xlog --checkpoint=fast --progress
     EOC
     not_if "test -f #{node["postgresql"]["data_directory"]}/PG_VERSION"
