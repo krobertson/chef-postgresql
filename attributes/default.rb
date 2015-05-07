@@ -137,7 +137,7 @@ default["postgresql"]["commit_delay"]                    = 0
 default["postgresql"]["commit_siblings"]                 = 5
 
 # checkpoints
-default["postgresql"]["checkpoint_segments"]             = 3
+default["postgresql"]["checkpoint_segments"]             = 9
 default["postgresql"]["checkpoint_timeout"]              = "5min"
 default["postgresql"]["checkpoint_completion_target"]    = 0.5
 default["postgresql"]["checkpoint_warning"]              = "30s"
