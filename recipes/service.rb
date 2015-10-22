@@ -27,5 +27,7 @@ if node["platform"] == "debian" && node["platform_version"].to_f >= 8.0
   service "postgresql@#{node["postgresql"]["version"]}-#{main_cluster_name}" do
     supports reload: true, restart: true, status: true
     action Array(node["postgresql"]["service_actions"]).map(&:to_sym)
+    action [:start, :enable]
+    provider Chef::Provider::Service::Systemd
   end
 end
