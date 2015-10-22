@@ -24,7 +24,7 @@ action :create do
       execute %(create postgresql database #{new_resource.name}) do # ~FC009
         user "postgres"
         command createdb
-        sensitive true
+        #sensitive true
       end
 
       new_resource.updated_by_last_action(true)
@@ -44,7 +44,7 @@ action :drop do
       execute %(drop postgresql database #{new_resource.name}) do
         user "postgres"
         command dropdb
-        sensitive true
+        #sensitive true
       end
 
       new_resource.updated_by_last_action(true)
